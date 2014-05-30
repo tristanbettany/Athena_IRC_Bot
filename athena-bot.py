@@ -7,18 +7,17 @@
 
 #Import Libraries
 import Bot
+import time
 
 ###############################################################
 # Initialise Bot, Connect To The Network and Monitor In A Loop
 ###############################################################
 
-athena_bot = Bot.Bot("irc.quakenet.org", 6667)
+athena_bot = Bot.Bot("irc.propcom.co.uk", 6667)
 
 if athena_bot.connected == 1:
 #
-	athena_bot.setupNick("Athena") #This is the name of the bot
-	athena_bot.operLogin("totallysecretpassword") #This password is used for both bot admin commands and network operator login
-	athena_bot.joinDefaultChannel("#bots") #This is the default channel for the bot
+	athena_bot.setupNick("Athena-Bot") #This is the name of the bot
 #
 
 while athena_bot.connected == 1:
@@ -33,6 +32,13 @@ while athena_bot.connected == 1:
 	if "PING :" in irc_message:
 	#
 		athena_bot.pingPong(irc_message)
+	#
+
+	#Join Channels Only After Message Of The Day
+	if "End of /MOTD command" in irc_message:
+	#
+		athena_bot.operLogin("supersecretpassword") #This password is used for both bot admin commands and network operator login
+		athena_bot.joinDefaultChannel("#devs") #This is the default channel for the bot
 	#
 	
 	#Handle Real Messages from humans
@@ -69,5 +75,5 @@ while athena_bot.connected == 1:
 	#
 
 	#To debug Uncomment the following line and you will see the irc output in the terminal
-	#print irc_message
+	print irc_message
 #

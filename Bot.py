@@ -7,7 +7,6 @@
 
 #Import Libraries
 import socket
-import time
 
 class Bot(object):
 #
@@ -44,7 +43,7 @@ class Bot(object):
 	#
 		#Setup Nickname
 		self.nick = nick
-		self.socket.send("USER " + self.nick + " " + self.hostname + " " + self.hostname + " :" + self.nick + self.LINE_ENDING)
+		self.socket.send("USER " + self.nick + " 0 * :" + self.nick + self.LINE_ENDING)
 		self.socket.send("NICK " + self.nick + self.LINE_ENDING)
 
 		print "Nickname Setup as: " + self.nick
@@ -80,6 +79,8 @@ class Bot(object):
 
 		#Send PONG
 		self.socket.send("PONG :" + pong_msg + self.LINE_ENDING)
+
+		print "PONG :" + pong_msg + self.LINE_ENDING
 	#
 
 	def joinDefaultChannel(self, default_channel):
